@@ -83,7 +83,7 @@ export default function Game() {
       <div className="content">
         <p>Your choice: {playerValue}</p>
         <p>Computer's choice: {compValue}</p>
-        <h2>Your Score:{playerScore}</h2>
+        <h2>Your Score: {playerScore}</h2>
         <h2>Computer Score: {compScore}</h2>
         <button onClick={() => resetResult()}>Reset</button>
       </div>
