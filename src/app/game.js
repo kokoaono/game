@@ -5,13 +5,26 @@ import {
   faHandRock,
   faHandScissors,
   faHandPaper,
+  faFlag,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function Game() {
-  const [compScore, setCompScore] = useState(0);
-  const [playerScore, setPlayerScore] = useState(0);
+  const [compScore, setCompScore] = useState([]);
+  const [playerScore, setPlayerScore] = useState([]);
   const [playerValue, setPlayerValue] = useState(null);
   const [compValue, setCompValue] = useState(null);
+
+  const pointFlag = (key, color) => {
+    return (
+      <FontAwesomeIcon
+        className="flag-icon"
+        key={key}
+        color={color}
+        icon={faFlag}
+        size="sm"
+      ></FontAwesomeIcon>
+    );
+  };
 
   const logic = (playerValue, compValue) => {
     if (playerValue === compValue) {
@@ -19,7 +32,7 @@ export default function Game() {
     } else if (
       (playerValue == "ROCK" && compValue == "SCISSORS") ||
       (playerValue == "SCISSORS" && compValue == "PAPER") ||
-      (playerValue == "PAPER" && compValue == "ROCKS")
+      (playerValue == "PAPER" && compValue == "ROCK")
     ) {
       return 1;
     } else {
@@ -31,14 +44,17 @@ export default function Game() {
     const choices = ["ROCK", "PAPER", "SCISSORS"];
     const compChoice = choices[Math.floor(Math.random() * choices.length)];
     const val = logic(playerChoice, compChoice);
+
     if (val === 1) {
-      setPlayerScore(playerScore + 1);
+      setPlayerScore([...playerScore, pointFlag(playerScore.length, "green")]);
       setPlayerValue(playerChoice);
+      setCompValue(compValue);
       setCompValue(compChoice);
     } else if (val === -1) {
-      setCompScore(compScore + 1);
-      setPlayerValue(playerChoice);
+      setCompScore([...compScore, pointFlag(compScore.length, "yellow")]);
       setCompValue(compChoice);
+      setPlayerScore(playerScore);
+      setPlayerValue(playerChoice);
     } else {
       setCompValue(compChoice);
       setPlayerValue(playerChoice);
@@ -46,8 +62,8 @@ export default function Game() {
   };
 
   const resetResult = () => {
-    setPlayerScore(0);
-    setCompScore(0);
+    setPlayerScore([]);
+    setCompScore([]);
   };
 
   return (

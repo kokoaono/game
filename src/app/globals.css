@@ -91,3 +91,7 @@ button:hover {
   font-weight: bold; /* Bold text */
   color: #ffeb3b; /* Bright yellow color for result */
 }
+
+.flag-icon {
+  margin-right: 5px;
+}
