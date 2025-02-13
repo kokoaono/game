@@ -5,7 +5,7 @@ import {
   faHandRock,
   faHandScissors,
   faHandPaper,
-  faFlag,
+  faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import { createPortal } from "react-dom";
 
@@ -16,14 +16,15 @@ export default function Game() {
   const [compValue, setCompValue] = useState(null);
   const [gameCount, setGameCount] = useState(0);
   const [winner, setWinner] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
-  const pointFlag = (key, color) => {
+  const point = (key, color) => {
     return (
       <FontAwesomeIcon
-        className="flag-icon"
+        className="star-icon"
         key={key}
         color={color}
-        icon={faFlag}
+        icon={faStar}
         size="sm"
       ></FontAwesomeIcon>
     );
@@ -55,12 +56,12 @@ export default function Game() {
     const val = logic(playerChoice, compChoice);
 
     if (val === 1) {
-      setPlayerScore([...playerScore, pointFlag(playerScore.length, "green")]);
+      setPlayerScore([...playerScore, point(playerScore.length, "aqua")]);
       setPlayerValue(playerChoice);
       setCompValue(compValue);
       setCompValue(compChoice);
     } else if (val === -1) {
-      setCompScore([...compScore, pointFlag(compScore.length, "yellow")]);
+      setCompScore([...compScore, point(compScore.length, "yellow")]);
       setCompValue(compChoice);
       setPlayerScore(playerScore);
       setPlayerValue(playerChoice);
@@ -77,13 +78,14 @@ export default function Game() {
   const showResult = () => {
     const playerResult = playerScore.length;
     const compResult = compScore.length;
-    var resultMessage =
-      playerResult > compResult
-        ? "You won the game!!"
-        : playerResult < compResult
-        ? "You lost the game!"
-        : "It's a tie!!";
-    alert(resultMessage);
+
+    playerResult > compResult
+      ? setWinner("You won the game!!")
+      : playerResult < compResult
+      ? setWinner("You lost the game!")
+      : setWinner("It's a tie!!");
+
+    setShowModal(true);
     resetResult();
   };
 
@@ -110,12 +112,16 @@ export default function Game() {
         </button>
       </div>
       <div className="content">
-        <p>Your choice: {playerValue}</p>
-        <p>Computer's choice: {compValue}</p>
-        <h2>Your Score: {playerScore}</h2>
-        <h2>Computer Score: {compScore}</h2>
-
-        <button onClick={() => resetResult()}>Reset</button>
+        {showModal ? (
+          <h2>{winner}</h2>
+        ) : (
+          <>
+            <p>Your choice: {playerValue}</p>
+            <p>Computer's choice: {compValue}</p>
+            <h2>Your Score: {playerScore}</h2>
+            <h2>Computer Score: {compScore}</h2>
+          </>
+        )}
       </div>
     </div>
   );
