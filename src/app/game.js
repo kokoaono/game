@@ -15,7 +15,7 @@ export default function Game() {
   const [playerValue, setPlayerValue] = useState(null);
   const [compValue, setCompValue] = useState(null);
   const [gameCount, setGameCount] = useState(0);
-  const [winner, setWinner] = useState(null);
+  const [result, setResult] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
   const point = (key, color) => {
@@ -80,16 +80,16 @@ export default function Game() {
     const compResult = compScore.length;
 
     playerResult > compResult
-      ? setWinner("You won the game!!")
+      ? setResult("You won the game!!")
       : playerResult < compResult
-      ? setWinner("You lost the game!")
-      : setWinner("It's a tie!!");
+      ? setResult("You lost the game!")
+      : setResult("It's a tie!!");
 
     setShowModal(true);
-    resetResult();
+    resetValues();
   };
 
-  const resetResult = () => {
+  const resetValues = () => {
     setPlayerScore([]);
     setCompScore([]);
     setPlayerValue(null);
@@ -114,7 +114,7 @@ export default function Game() {
       <div className="content">
         {showModal ? (
           <>
-            <h2>{winner}</h2>
+            <h2>{result}</h2>
             <button onClick={() => setShowModal(false)}>Play again!</button>
           </>
         ) : (
