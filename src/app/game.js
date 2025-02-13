@@ -50,7 +50,7 @@ export default function Game() {
       return;
     }
     setGameCount(gameCount + 1);
-    console.log(`I am from game Count${gameCount}`);
+
     const choices = ["ROCK", "PAPER", "SCISSORS"];
     const compChoice = choices[Math.floor(Math.random() * choices.length)];
     const val = logic(playerChoice, compChoice);
@@ -113,7 +113,10 @@ export default function Game() {
       </div>
       <div className="content">
         {showModal ? (
-          <h2>{winner}</h2>
+          <>
+            <h2>{winner}</h2>
+            <button onClick={() => setShowModal(false)}>Play again!</button>
+          </>
         ) : (
           <>
             <p>Your choice: {playerValue}</p>
