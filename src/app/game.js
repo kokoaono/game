@@ -6,8 +6,10 @@ import {
   faHandScissors,
   faHandPaper,
   faStar,
+  faLaugh,
+  faFaceSadTear,
+  faHandshake,
 } from "@fortawesome/free-solid-svg-icons";
-import { createPortal } from "react-dom";
 
 export default function Game() {
   const [compScore, setCompScore] = useState([]);
@@ -80,10 +82,25 @@ export default function Game() {
     const compResult = compScore.length;
 
     playerResult > compResult
-      ? setResult("You won the game!!")
+      ? setResult(
+          <>
+            You won the game!!{" "}
+            <FontAwesomeIcon className="result-icon" icon={faLaugh} />
+          </>
+        )
       : playerResult < compResult
-      ? setResult("You lost the game!")
-      : setResult("It's a tie!!");
+      ? setResult(
+          <>
+            You lost the game!{" "}
+            <FontAwesomeIcon className="result-icon" icon={faFaceSadTear} />
+          </>
+        )
+      : setResult(
+          <>
+            It's a tie!!{" "}
+            <FontAwesomeIcon className="result-icon" icon={faHandshake} />
+          </>
+        );
 
     setShowModal(true);
     resetValues();
