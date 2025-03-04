@@ -25,4 +25,5 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 - your feedback and contributions are welcome!
 
 ## Live on Vercel
+Vercelを利用して展開済み。
 https://game-git-main-kokoaonos-projects.vercel.app/
